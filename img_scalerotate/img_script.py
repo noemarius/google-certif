@@ -3,7 +3,7 @@ import os
 
 filepath = "./data/"
 
-class modimg():
+class Modimg():
     def __init__(self, path, r, x, y):
         self.path = path
         self.r = r
@@ -36,7 +36,7 @@ def main():
     file_list = get_filelocs(filepath)
     print(file_list)
     for i in file_list:
-        i = modimg(i, 90, 128, 128)
+        i = Modimg(i, 90, 128, 128)
         i.rotate_img()
         i.resize_img()
         i.save_img()
