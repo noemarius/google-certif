@@ -1,2 +1,4 @@
 env/
 img_scalerotate/data/
+json_to_api/data/
+json_to_api/opt/
