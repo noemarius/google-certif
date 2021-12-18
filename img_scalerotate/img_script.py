@@ -10,7 +10,7 @@ class modimg():
         self.x = x
         self.y = y 
         self.lmg = Image.open(self.path)
-        self.opt = path.replace(".tiff", ".jpeg")
+        self.opt = path
         
 
     def resize_img(self):
@@ -20,6 +20,7 @@ class modimg():
         self.lmg = self.lmg.rotate(self.r)
 
     def save_img(self):
+        self.lmg = self.lmg.convert("RGB")
         self.lmg = self.lmg.save(self.opt)
     
 
@@ -27,7 +28,7 @@ def get_filelocs(folderpath):
     fileloc_list = []
     for root, dirs, files in os.walk(folderpath):
         for file in files:
-            if os.path.splitext(file)[1] == ".tiff":
+            if os.path.splitext(file)[0][0] != ".":
                 fileloc_list.append(root+file)
     return fileloc_list
 
