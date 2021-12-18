@@ -1,24 +1,44 @@
 from PIL import Image
+import os
 
-filepath = "./data/1.jpg"
+filepath = "./data/"
 
-def load_img(fileloc):
-    return Image.open(fileloc)
+class modimg():
+    def __init__(self, path, r, x, y):
+        self.path = path
+        self.r = r
+        self.x = x
+        self.y = y 
+        self.lmg = Image.open(self.path)
+        self.opt = path.replace(".tiff", ".jpeg")
+        
 
-def resize_img(lfile):
-    return lfile.resize((640,480))
+    def resize_img(self):
+        self.lmg = self.lmg.resize((self.x,self.y))
 
-def rotate_img(lfile):
-    return lfile.rotate(45)
+    def rotate_img(self):
+        self.lmg = self.lmg.rotate(self.r)
 
-def save_file(modifiedfile, filename):
-    return modifiedfile.save(filename)
+    def save_img(self):
+        self.lmg = self.lmg.save(self.opt)
+    
+
+def get_filelocs(folderpath):
+    fileloc_list = []
+    for root, dirs, files in os.walk(folderpath):
+        for file in files:
+            if os.path.splitext(file)[1] == ".tiff":
+                fileloc_list.append(root+file)
+    return fileloc_list
 
 def main():
-    loadedfile = load_img(filepath)
-    rotatedimg = rotate_img(loadedfile)
-    resizedimg = resize_img(rotatedimg)
-    save_file(resizedimg, "./data/modimg.jpg")
+    file_list = get_filelocs(filepath)
+    print(file_list)
+    for i in file_list:
+        i = modimg(i, 90, 128, 128)
+        i.rotate_img()
+        i.resize_img()
+        i.save_img()
 
 if __name__ == "__main__":
     main()
