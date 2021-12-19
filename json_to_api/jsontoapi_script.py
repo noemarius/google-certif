@@ -25,9 +25,9 @@ def convert_txt_to_dict(filepath):
     formatedcontent = list_to_dict(content, keylist)
     return formatedcontent
 
-def json_to_rest(contentjson):
+def json_to_rest(contentdict):
     try:
-        response = requests.post(URL, data=contentjson)
+        response = requests.post(URL, data=contentdict)
         response.raise_for_status()
         return response
     except Exception as e:
