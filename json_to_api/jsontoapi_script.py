@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 import os
-import pandas as pd
 import json
 import requests
 
 inputfolderpath = "./data/"
 outputfolderpath = "./opt/"
 keylist = ["title", "name", "date", "feedback"]
+IP = ""
+URL = f"http://{IP}/feedback"
 
 def get_filelist(folderpath):
     filelist = []
@@ -18,11 +19,9 @@ def get_filelist(folderpath):
 def get_foldercontent(folderpath):
     return os.listdir(folderpath)
 
-def read_csv(file):
-    return pd.read_csv(file)
+def dict_to_json(contentdict):
+    return json.dumps(contentdict)
 
-def export_json(dataframe, of):
-    dataframe.to_json(of)
 
 def list_to_dict(listcontent, keylist):
     contentdict = dict(zip(keylist, listcontent)) 
@@ -32,21 +31,27 @@ def convert_txt_to_dict(filepath):
     content = []
     with open(filepath) as file:
         for line in file:
-            #i.readline()
             newline = line.rstrip('\r\n')
             content.append(newline)
-        #content = content.split("\\n")
+
     formatedcontent = list_to_dict(content, keylist)
     return formatedcontent
 
+def json_to_rest(contentjson):
+    try:
+        response = requests.post(URL, json=contentjson)
+        response.raise_for_status()
+        return response
+    except Exception as e:
+        print(e)
+
 def main():
-    #filelist = get_filelist(inputfolderpath)
     filelist = get_foldercontent(inputfolderpath)
     for file in filelist:
-        #df = read_csv(inputfolderpath+file)
-        #outputfilename = outputfolderpath+os.path.splitext(os.path.basename(file))[0]+".json"
-        #export_json(df, outputfilename)
         parsedcontent = convert_txt_to_dict(inputfolderpath+file)
-        print(parsedcontent)
+        formatedjson = dict_to_json(parsedcontent)
+        postedcontent = json_to_rest(formatedjson)
+        print(postedcontent.text)
+
 if __name__ == '__main__':
     main()
