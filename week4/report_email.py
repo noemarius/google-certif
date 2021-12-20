@@ -14,7 +14,7 @@ inputfolderpath = "supplier-data/descriptions/"
 outputfolderpath = "tmp/"
 outputfilename = "processed.pdf"
 keylist = ["name", "weight", "description", "image_name"]
-reporttitle = "Processed Update on "+ datetime.now().strftime("%b %d, %Y")
+reporttitle = "Processed Update on "+ datetime.datetime.now().strftime("%b %d, %Y")
 reportpath = outputfolderpath+outputfilename
 
 def list_to_dict(listcontent, keylist):
