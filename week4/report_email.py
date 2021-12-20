@@ -11,7 +11,7 @@ subject = "Upload Completed - Online Fruit Store"
 body = "All fruits are uploaded to our website successfully. A detailed list is attached to this email."
 
 inputfolderpath = "supplier-data/descriptions/"
-outputfolderpath = "tmp/"
+outputfolderpath = "/tmp/"
 outputfilename = "processed.pdf"
 keylist = ["name", "weight", "description", "image_name"]
 reporttitle = "Processed Update on "+ datetime.datetime.now().strftime("%b %d, %Y")
