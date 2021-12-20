@@ -40,7 +40,7 @@ def main():
     for file in filelist:
         filescontent.append(convert_txt_to_dict(file)["name"])
         filescontent.append(convert_txt_to_dict(file)["weight"])
-        filescontent.append(convert_txt_to_dict(file)["\\n"])
+        filescontent.append("\\n")
 
     reports.generate_report(reportpath, reporttitle, filescontent)
 
