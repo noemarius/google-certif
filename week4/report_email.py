@@ -45,7 +45,7 @@ def main():
 
     message = emails.generate_email(sender, recipient, subject, body, reportpath)
     print(message)
-    emails.send_email(sender, message)
+    emails.send_email(message)
 
 
 if __name__ == '__main__':

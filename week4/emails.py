@@ -28,14 +28,13 @@ class Email():
         return self.mail
         
 class MailServer():
-    def __init__(self, sender, password, message):
+    def __init__(self, sender, message):
         mailserverurl= "localhost"
         mail_server = smtplib.SMTP(mailserverurl)
         mail_server.set_debuglevel(1)
         self.ms = mail_server
         self.s = sender
         self.m = message
-        self.p = password
         
     def serverauth(self):
         self.ms.login(self.s, self.p)
@@ -51,8 +50,8 @@ def generate_email(sender, recipient, subject, body, attachment):
     builtmail = Email(sender, recipient, subject,body, attachment)
     return builtmail
 
-def send_email(sender, password, message):
-    mail = MailServer(sender, password, message)
+def send_email(message):
+    mail = MailServer(message)
     mail.serverauth()
     mail.sendmail()
     mail.closeconnection()
