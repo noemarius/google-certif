@@ -30,7 +30,7 @@ class Email():
 class MailServer():
     def __init__(self, sender, password, message):
         mailserverurl= "localhost"
-        mail_server = smtplib.SMTP_SSL(mailserverurl)
+        mail_server = smtplib.SMTP(mailserverurl)
         mail_server.set_debuglevel(1)
         self.ms = mail_server
         self.s = sender
