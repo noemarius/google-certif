@@ -37,13 +37,15 @@ def convert_txt_to_dict(filepath):
 def main():
     filelist = get_foldercontent(inputfolderpath)
     filescontent = []
+     
     for file in filelist:
-        filescontent.append(convert_txt_to_dict(file)["name"])
-        filescontent.append(convert_txt_to_dict(file)["weight"])
-    mergedcontent = '\\n'.join([str(elem) for elem in filescontent])
+        parsedfile = convert_txt_to_dict(file)
+        filescontent.append("name: " + parsedfile["name"] + "<br/>" + "weight: " + parsedfile["weight"] + "<br/><br/>")
+
+    mergedcontent = ' '.join([str(elem) for elem in filescontent])
     reports.generate_report(reportpath, reporttitle, mergedcontent)
 
-    message = emails.generate_email(sender, recipient, subject, body, reportpath)
+    message = emails.generate_email(sender, recipient, subject, body, reportpath).set_params()
     emails.send_email(message)
 
 
