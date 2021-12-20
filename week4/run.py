@@ -24,13 +24,13 @@ def convert_txt_to_dict(filepath):
     filename = os.path.basename(filepath).replace(".txt",".jpeg")
     print(content)
     print(filename)
-    content.append(filename)
+    content[3] = filename
     formatedcontent = list_to_dict(content, keylist)
     modformatedcontent = convert_weight(formatedcontent)
     return modformatedcontent
 
 def convert_weight(content):
-    content[keylist[1]] = int(content[keylist[1]].replace(" lbs", ""))
+    content[keylist[1]] = int(content[keylist[1]].strip(" lbs"))
     return content
 
 def json_to_rest(contentdict):
