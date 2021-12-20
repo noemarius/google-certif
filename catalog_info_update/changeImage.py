@@ -30,8 +30,10 @@ def get_filelocs(folderpath):
     fileloc_list = []
     for root, dirs, files in os.walk(folderpath):
         for file in files:
-            if os.path.splitext(file)[0][0] != ".":
-                fileloc_list.append(root+file)
+            filename = os.path.splitext(file)
+            if filename[0][0] != ".":
+                if filename[1] != ".tiff"
+                    fileloc_list.append(root+file)
     return fileloc_list
 
 def main():
