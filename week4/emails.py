@@ -46,8 +46,8 @@ class MailServer():
         self.ms.quit()
 
 
-def generate_email(sender, recipient, body, attachment):
-    builtmail = Email(sender, recipient, body, attachment)
+def generate_email(sender, recipient, subject, body, attachment):
+    builtmail = Email(sender, recipient, subject,body, attachment)
     return builtmail
 
 def send_email(sender, password, message):
