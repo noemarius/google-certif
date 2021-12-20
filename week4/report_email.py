@@ -40,9 +40,8 @@ def main():
     for file in filelist:
         filescontent.append(convert_txt_to_dict(file)["name"])
         filescontent.append(convert_txt_to_dict(file)["weight"])
-        filescontent.append("\\n")
-
-    reports.generate_report(reportpath, reporttitle, filescontent)
+    mergedcontent = '\\n'.join([str(elem) for elem in filescontent])
+    reports.generate_report(reportpath, reporttitle, mergedcontent)
 
     message = emails.generate_email(sender, recipient, subject, body, reportpath)
     emails.send_email(sender, message)
