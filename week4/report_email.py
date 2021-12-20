@@ -26,7 +26,7 @@ def get_foldercontent(folderpath):
 
 def convert_txt_to_dict(filepath):
     content = []
-    with open(filepath) as file:
+    with open(inputfolderpath+filepath) as file:
         for line in file:
             newline = line.rstrip('\r\n')
             content.append(newline)
