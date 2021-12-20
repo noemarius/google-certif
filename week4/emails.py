@@ -52,7 +52,7 @@ def generate_email(sender, recipient, subject, body, attachment):
 
 def send_email(sender, message):
     mail = MailServer(sender, message)
-    mail.serverauth()
+    #mail.serverauth()
     mail.sendmail()
     mail.closeconnection()
 
