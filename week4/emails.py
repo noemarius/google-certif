@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from _typeshed import Self
 import smtplib
 import os
 from email.message import EmailMessage

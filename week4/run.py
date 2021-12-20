@@ -24,7 +24,7 @@ def convert_txt_to_dict(filepath):
     filename = os.path.basename(filepath).replace(".txt",".jpeg")
     print(content)
     print(filename)
-    content[3] = filename
+    content.append(filename)
     formatedcontent = list_to_dict(content, keylist)
     modformatedcontent = convert_weight(formatedcontent)
     return modformatedcontent
