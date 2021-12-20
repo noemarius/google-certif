@@ -1,17 +1,51 @@
 #!/usr/bin/env python3
 import emails
 import os
-import getpass
-reportpath = "opt/report.pdf"
+import reports
+import datetime
+
+
 sender = "automation@example.com"
 recipient = "{}@example.com".format(os.environ.get('USER'))
 subject = "Upload Completed - Online Fruit Store"
 body = "All fruits are uploaded to our website successfully. A detailed list is attached to this email."
-password = getpass.getpass('Password? ')
+
+inputfolderpath = "supplier-data/descriptions/"
+outputfolderpath = "tmp/"
+outputfilename = "processed.pdf"
+keylist = ["name", "weight", "description", "image_name"]
+reporttitle = "Processed Update on "+ datetime.now().strftime("%b %d, %Y")
+reportpath = outputfolderpath+outputfilename
+
+def list_to_dict(listcontent, keylist):
+    contentdict = dict(zip(keylist, listcontent)) 
+    return contentdict
+
+def get_foldercontent(folderpath):
+    return os.listdir(folderpath)
+
+def convert_txt_to_dict(filepath):
+    content = []
+    with open(filepath) as file:
+        for line in file:
+            newline = line.rstrip('\r\n')
+            content.append(newline)
+
+    formatedcontent = list_to_dict(content, keylist)
+    return formatedcontent
 
 def main():
+    filelist = get_foldercontent(inputfolderpath)
+    filescontent = []
+    for file in filelist:
+        filescontent.append(convert_txt_to_dict(file)["name"])
+        filescontent.append(convert_txt_to_dict(file)["weight"])
+        filescontent.append(convert_txt_to_dict(file)["\\n"])
+
+    reports.generate_report(reportpath, reporttitle, filescontent)
+
     message = emails.generate_email(sender, recipient, subject, body, reportpath)
-    emails.send_email(sender, password, message)
+    emails.send_email(sender, message)
 
 
 if __name__ == '__main__':

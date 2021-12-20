@@ -29,17 +29,16 @@ class Email():
         return self.mail
         
 class MailServer():
-    def __init__(self, sender, password, message):
-        mailserverurl= ""
+    def __init__(self, sender, message):
+        mailserverurl= "localhost"
         mail_server = smtplib.SMTP_SSL(mailserverurl)
         mail_server.set_debuglevel(1)
         self.ms = mail_server
         self.s = sender
-        self.p = password
         self.m = message
         
     def serverauth(self):
-        self.ms.login(self.s, self.p)
+        self.ms.login(self.s)
 
     def sendmail(self):
         self.ms.send_message(self.m)
