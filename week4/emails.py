@@ -50,8 +50,8 @@ def generate_email(sender, recipient, subject, body, attachment):
     builtmail = Email(sender, recipient, subject,body, attachment)
     return builtmail
 
-def send_email(sender, password, message):
-    mail = MailServer(sender, password, message)
+def send_email(sender, message):
+    mail = MailServer(sender, message)
     mail.serverauth()
     mail.sendmail()
     mail.closeconnection()
