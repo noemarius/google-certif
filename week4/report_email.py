@@ -44,7 +44,6 @@ def main():
     reports.generate_report(reportpath, reporttitle, mergedcontent)
 
     message = emails.generate_email(sender, recipient, subject, body, reportpath)
-    print(message)
     emails.send_email(message)
 
 

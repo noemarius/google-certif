@@ -28,12 +28,11 @@ class Email():
         return self.mail
         
 class MailServer():
-    def __init__(self, sender, message):
+    def __init__(self, message):
         mailserverurl= "localhost"
         mail_server = smtplib.SMTP(mailserverurl)
         mail_server.set_debuglevel(1)
         self.ms = mail_server
-        self.s = sender
         self.m = message
         
     def serverauth(self):
