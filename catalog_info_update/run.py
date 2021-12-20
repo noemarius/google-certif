@@ -2,32 +2,35 @@
 import os
 import requests
 
-inputfolderpath = "./data/"
+inputfolderpath = "./supplier-data/descriptions/"
 outputfolderpath = "./opt/"
 keylist = ["name", "weight", "description", "image_name"]
-IP = "replace me"
-URL = "http://{}/feedback/".format(IP)
+IP = "localhost"
+URL = "http://{}/fruits/".format(IP)
 
 def get_foldercontent(folderpath):
     return os.listdir(folderpath)
 
 def list_to_dict(listcontent, keylist):
-    contentdict = dict(zip(keylist, listcontent)) 
+    contentdict = dict(zip(keylist, listcontent))
     return contentdict
 
 def convert_txt_to_dict(filepath):
     content = []
     with open(filepath) as file:
         for line in file:
-            newline = line.rstrip('\r\n')
+            newline = line.rstrip()
             content.append(newline)
-    content.append(os.path.split(os.path.basename(file))+".jpg")
+    filename = os.path.basename(filepath).replace(".txt",".jpeg")
+    print(content)
+    print(filename)
+    content.append(filename)
     formatedcontent = list_to_dict(content, keylist)
     modformatedcontent = convert_weight(formatedcontent)
     return modformatedcontent
 
 def convert_weight(content):
-    content[keylist[1]] = int(content.replace(" lbs", ""))
+    content[keylist[1]] = int(content[keylist[1]].replace(" lbs", ""))
     return content
 
 def json_to_rest(contentdict):
@@ -42,9 +45,8 @@ def main():
     filelist = get_foldercontent(inputfolderpath)
     for file in filelist:
         parsedcontent = convert_txt_to_dict(inputfolderpath+file)
-        formateddict = dict_to_json(parsedcontent)
-        postedcontent = dict_to_rest(formateddict)
-        print(postedcontent.text)
+        #postedcontent = json_to_rest(parsedcontent)
+        print(parsedcontent)
 
 if __name__ == '__main__':
     main()

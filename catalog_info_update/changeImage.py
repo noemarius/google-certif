@@ -9,10 +9,10 @@ class Modimg():
         self.path = path
         self.r = r
         self.x = x
-        self.y = y 
+        self.y = y
         self.lmg = Image.open(self.path)
         self.opt = path
-        
+
 
     def resize_img(self):
         self.lmg = self.lmg.resize((self.x,self.y))
@@ -21,19 +21,18 @@ class Modimg():
         self.lmg = self.lmg.rotate(self.r)
 
     def save_img(self):
+        newname = os.path.splitext(self.opt)[0]+".jpeg"
         self.lmg = self.lmg.convert("RGB")
-        self.lmg = self.lmg.save(self.opt)
+        self.lmg = self.lmg.save(newname, 'jpeg')
 
-    
+
 
 def get_filelocs(folderpath):
     fileloc_list = []
-    for root, dirs, files in os.walk(folderpath):
-        for file in files:
-            filename = os.path.splitext(file)
-            if filename[0][0] != ".":
-                if filename[1] != ".tiff"
-                    fileloc_list.append(root+file)
+    files = os.listdir(filepath)
+    for file in files:
+        if "tiff" in file:
+            fileloc_list.append(filepath+file)
     return fileloc_list
 
 def main():
