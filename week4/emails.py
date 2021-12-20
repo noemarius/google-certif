@@ -35,9 +35,6 @@ class MailServer():
         self.ms = mail_server
         self.m = message
         
-    def serverauth(self):
-        self.ms.login(self.s, self.p)
-
     def sendmail(self):
         self.ms.send_message(self.m)
 
@@ -51,7 +48,6 @@ def generate_email(sender, recipient, subject, body, attachment):
 
 def send_email(message):
     mail = MailServer(message)
-    mail.serverauth()
     mail.sendmail()
     mail.closeconnection()
 
