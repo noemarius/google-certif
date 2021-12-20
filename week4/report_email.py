@@ -3,8 +3,9 @@ import emails
 import os
 import reports
 import datetime
+import getpass
 
-
+password = getpass.getpass(prompt='Password: ')
 sender = "automation@example.com"
 recipient = "{}@example.com".format(os.environ.get('USER'))
 subject = "Upload Completed - Online Fruit Store"
@@ -45,7 +46,7 @@ def main():
 
     message = emails.generate_email(sender, recipient, subject, body, reportpath)
     print(message)
-    emails.send_email(sender, message)
+    emails.send_email(sender, password, message)
 
 
 if __name__ == '__main__':
